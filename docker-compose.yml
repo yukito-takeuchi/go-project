@@ -33,8 +33,7 @@ services:
         condition: service_healthy
     volumes:
       - ./backend:/app
-      - /app/tmp
-    command: air -c .air.toml
+    command: go run main.go
 
 volumes:
   postgres_data:

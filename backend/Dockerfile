@@ -1,10 +1,7 @@
-# Development stage with Air for hot reload
-FROM golang:1.21-alpine AS development
+# Development stage
+FROM golang:1.23-alpine AS development
 
 WORKDIR /app
-
-# Install Air for hot reload
-RUN go install github.com/cosmtrek/air@latest
 
 # Copy go mod files
 COPY go.mod go.sum* ./
@@ -18,11 +15,11 @@ COPY . .
 # Expose port
 EXPOSE 8080
 
-# Air will be run via docker-compose command
-CMD ["air", "-c", ".air.toml"]
+# Run the application
+CMD ["go", "run", "main.go"]
 
 # Production stage
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
